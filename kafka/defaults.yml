@@ -1,0 +1,7 @@
+# vim: ft=yaml
+# Defaults for kafka
+
+kafka:
+  enabled: true
+  pkg: screen
+

@@ -1,0 +1,32 @@
+# vim: ft=yaml
+---
+driver:
+  name: vagrant
+  customize: 
+    memory: 1024
+
+provisioner:
+  name: salt_solo
+  formula: kafka
+  chef_bootstrap_url: "https://gist.githubusercontent.com/ssplatt/4df4942523dea4a9c5bb/raw/5eda0aa6ccb3a304b984b023d4292cd32e19e7ba/install.sh"
+  state_top:
+    base:
+      "*":
+        - kafka
+
+platforms:
+  - name: bento/debian-8.2
+
+suites:
+  - name: default
+
+  - name: custom
+    provisioner:
+      pillars-from-files:
+        kafka.sls: pillar-custom.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - kafka
+
